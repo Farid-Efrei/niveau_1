@@ -1,0 +1,31 @@
+{
+  "name": "backend_express_mongo",
+  "version": "1.0.0",
+  "description": "projet solo niveau 0 vueJs backend express + mongoDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Farid-Efrei/niveau_0_vuejs_express_mongodb.git"
+  },
+  "keywords": [
+    "vueJS",
+    "MongoDB",
+    "express",
+    "crud",
+    "endpoints"
+  ],
+  "author": "Farid_Dje",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Farid-Efrei/niveau_0_vuejs_express_mongodb/issues"
+  },
+  "homepage": "https://github.com/Farid-Efrei/niveau_0_vuejs_express_mongodb#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mongodb": "^6.9.0"
+  }
+}

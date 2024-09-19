@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "66ec29f29632672958d9303c"
+  },
+  "citation": "l'essentiel est invisible pour les yeux !",
+  "auteur": "Saint Exupery"
+},{
+  "_id": {
+    "$oid": "66ec29f29632672958d9303d"
+  },
+  "citation": "Kamehameha !!!",
+  "auteur": "Goku"
+},{
+  "_id": {
+    "$oid": "66ec334e8ad6895d27e88f93"
+  },
+  "citation": "mieux vaut tard que jamais !",
+  "auteur": "moi ^^"
+},{
+  "_id": {
+    "$oid": "66ec81f391fd085a4fef5c59"
+  },
+  "citation": "aieeeee !",
+  "auteur": "nab"
+},{
+  "_id": {
+    "$oid": "66ec8b8f91fd085a4fef5c69"
+  },
+  "citation": "Ceux qui abandonnent ne gagnent jamais, ceux qui gagnent n’abandonnent jamais.",
+  "auteur": "Paulo Cuelho"
+},{
+  "_id": {
+    "$oid": "66ec8bb091fd085a4fef5c6a"
+  },
+  "citation": "Ceux qui ne croient pas en l’impossible sont priés de ne pas décourager ceux qui sont en train de le faire.",
+  "auteur": "Mike HOrn"
+},{
+  "_id": {
+    "$oid": "66ec8be191fd085a4fef5c6b"
+  },
+  "citation": "« Il n’y a qu’une façon d’échouer, c’est d’abandonner avant d’avoir réussi. »",
+  "auteur": "Henry Ford"
+},{
+  "_id": {
+    "$oid": "66ec8bf791fd085a4fef5c6c"
+  },
+  "citation": "« L’échec est l’épice qui donne sa saveur au succès. »",
+  "auteur": "Einstein"
+},{
+  "_id": {
+    "$oid": "66ec8c1691fd085a4fef5c6d"
+  },
+  "citation": "« Il n’y a pas de réussites faciles ni d’échecs définitifs. »",
+  "auteur": "Goethe"
+},{
+  "_id": {
+    "$oid": "66ec8c5e91fd085a4fef5c6e"
+  },
+  "citation": "« La seule façon de faire du bon travail est d’aimer ce que vous faites. Si vous n’avez pas encore trouvé, continuez à chercher. »",
+  "auteur": "Confucius"
+}]
