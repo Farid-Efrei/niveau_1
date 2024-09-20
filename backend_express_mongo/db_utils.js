@@ -12,8 +12,9 @@ async function connectToMongo() {
     await client.connect();
     db = client.db("dbtest");
     usersCollection = await db.collection("users");
-    citationsCollection = await db.collection("citations");
+    citationsCollection = await db.collection("citationsDB");
     console.log("Connecté à MongoDB");
+    return db;
     // return client.db("dbtest").collection("citationsDB");
   } catch (error) {
     console.error("Erreur de connexion à MongoDB:", error);
@@ -23,18 +24,17 @@ async function connectToMongo() {
 
 // Fonction pour obtenir toutes les citations
 async function getAllCitations() {
-  const citationsCollection = await connectToMongo();
+  await connectToMongo();
   return await citationsCollection.find({}).toArray();
 }
 
 // Fonction pour ajouter une nouvelle citation à la collection:
-async function addCitation(citation, auteur, source, userId) {
-  const citationsCollection = await connectToMongo();
+async function addCitation(citation, auteur, source) {
+  await connectToMongo();
   const newCitation = {
     citation,
     auteur,
     source: source || "Inconnu",
-    userId,
     createdAt: new Date(),
   };
   const cita = await citationsCollection.insertOne(newCitation);
@@ -63,10 +63,10 @@ async function getRandomCitation() {
 }
 
 // Gestion des users:
-async function resgisterUser(username, password) {
+async function registerUser(username, password) {
   await connectToMongo();
   const hashedPassword = await bcrypt.hash(password, 10);
-  const result = await usersCollectioninsertOne({
+  const result = await usersCollection.insertOne({
     username,
     password: hashedPassword,
   });
@@ -88,6 +88,7 @@ module.exports = {
   addCitation,
   deleteCitationById,
   getRandomCitation,
-  resgisterUser,
+  registerUser,
   loginUser,
+  connectToMongo,
 };

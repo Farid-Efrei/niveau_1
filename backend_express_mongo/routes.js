@@ -1,6 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const {
+  registerUser,
+  loginUser,
+  addCitation,
+  getAllCitations,
+  getRandomCitation,
+  deleteCitationById,
+  connectToMongo,
+} = require("./db_utils");
 
 //Middleware d'authentication:
 function authenticateToken(req, res, next) {
@@ -19,9 +29,31 @@ function authenticateToken(req, res, next) {
 router.post("/register", async (req, res) => {
   const { username, password } = req.body;
   try {
-    const newUser = await registerUser(username, password);
-    res.json(newUser);
+    const db = await connectToMongo();
+    const usersCollection = await db.collection("users");
+    console.log("Collection users :", usersCollection);
+    const existingUser = await usersCollection.findOne({ username });
+    console.log("Utilisateur existant :", existingUser);
+    if (existingUser) {
+      return res.status(409).json({ message: "Nom d'utilisateur déjà pris." });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const result = await usersCollection.insertOne({
+      username,
+      password: hashedPassword,
+    });
+
+    if (result.acknowledged) {
+      res.status(201).json({
+        message: "Utilisateur créé avec succès.",
+        userId: result.insertedId,
+      });
+    } else {
+      throw new Error("L'insertion de l'user a échoué.");
+    }
   } catch (error) {
+    console.error("Erreur dans /register :", error);
     res.status(500).json({ message: error.message });
   }
 });
@@ -53,10 +85,10 @@ router.post("/new-citation", authenticateToken, async (req, res) => {
     const newCitation = await addCitation(
       citation,
       auteur,
-      source,
-      req.user.userId
+      source
+      // req.user.userId
     );
-    res.json(newCitation);
+    res.status(201).json(newCitation);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

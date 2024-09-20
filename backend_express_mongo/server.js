@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const router = require("./routes");
+const routes = require("./routes");
 // const {
 //   getAllCitations,
 //   addCitation,
