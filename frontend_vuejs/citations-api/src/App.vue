@@ -16,14 +16,9 @@ function fetchCitations() {
 
 <template>
   <div>
-    <NavBar />
-    <router-view />
-
-    <!-- <Login /> -->
-    <!-- <CitationsListe /> -->
-    <!-- <NewCitation /> -->
-    <!-- <AddCitation @CitAjout="fetchCitations" />
-    <CitationList ref="citationList" /> -->
+    <h1>Application de Citations</h1>
+    <AddCitation @CitAjout="fetchCitations" />
+    <CitationList ref="citationList" />
   </div>
 </template>
 
