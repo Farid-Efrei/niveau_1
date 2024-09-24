@@ -1,43 +1,44 @@
 name: CI
+name: CI
 
 on:
   push:
-    branches: [main]
-pull_request:
-    branches: [main]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-jobs: 
-    build-and-test:
-        runs-on: ubuntu-latest
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
     
-        steps:
-        - uses: actions/checkout@v2
-
-        - name: Build and test Backend
-        run: 
-        cd backend_express_mongo
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build and test backend
+      run: |
+        cd backend_express_mongodb
         docker build -t backend .
         docker run -d --name backend -p 3000:3000 backend
         docker exec backend npm test
-        
-        - name: Build and test Frontend
-        run: |
+    
+    - name: Build and test frontend
+      run: |
         cd frontend_vuejs/citations-api
         docker build -t frontend .
         docker run -d --name frontend -p 5173:5173 frontend
         docker exec frontend npm run test:unit
-
-        - name: Run Cypress tests
-        uses: cypress-io/github-action@v2
-        with:
-            working-directory: ./frontend_vuejs/citations-aî
-            command: npm run test:e2e
-            wait-on: 'http://localhost:5173'
-        
-        - name: Upload test coverage
-        uses: actions/upload-artifact@v2
-        with:
-            name: coverage
-            path: |
-            ./backend_express_mongo/coverage
-            ./frontend_vuesjs/citations-api/coverage
+    
+    - name: Run Cypress tests
+      uses: cypress-io/github-action@v2
+      with:
+        working-directory: ./frontend_vuejs/citations-api
+        command: npm run test:e2e
+        wait-on: 'http://localhost:5173'
+    
+    - name: Upload test coverage
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: |
+          ./backend_express_mongodb/coverage
+          ./frontend_vuejs/citations-api/coverage
