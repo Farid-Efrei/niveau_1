@@ -3,41 +3,59 @@ name: CI
 on:
   push:
     branches: [main]
-pull_request:
+  pull_request:
     branches: [main]
 
-jobs: 
-    build-and-test:
-        runs-on: ubuntu-latest
-    
-        steps:
-        - uses: actions/checkout@v2
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
 
-        - name: Build and test Backend
-        run: |
-        cd backend_express_mongo
-        docker build -t backend .
-        docker run -d --name backend -p 3000:3000 backend
-        docker exec backend npm test
-        
-        - name: Build and test Frontend
-        run: |
-        cd frontend_vuejs/citations-api
-        docker build -t frontend .
-        docker run -d --name frontend -p 5173:5173 frontend
-        docker exec frontend npm run test:unit
+    steps:
+      - uses: actions/checkout@v2
 
-        - name: Run Cypress tests
+      # Build and test backend
+      - name: Build and test backend
+        run: |
+          cd backend_express_mongodb
+          docker build -t backend .
+          docker run -d --name backend -p 3000:3000 backend
+          docker exec backend npm install # Install dependencies before running tests
+          docker exec backend npm test
+        # Stop and remove the backend container after tests
+        continue-on-error: true
+      - name: Stop and remove backend container
+        run: |
+          docker stop backend || true
+          docker rm backend || true
+
+      # Build and test frontend
+      - name: Build and test frontend
+        run: |
+          cd frontend_vuejs/citations-api
+          docker build -t frontend .
+          docker run -d --name frontend -p 5173:5173 frontend
+          docker exec frontend npm install # Install dependencies before running tests
+          docker exec frontend npm run test:unit
+        # Stop and remove the frontend container after tests
+        continue-on-error: true
+      - name: Stop and remove frontend container
+        run: |
+          docker stop frontend || true
+          docker rm frontend || true
+
+      # Run Cypress tests
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v2
         with:
-            working-directory: ./frontend_vuejs/citations-aî
-            command: npm run test:e2e
-            wait-on: 'http://localhost:5173'
-        
-        - name: Upload test coverage
+          working-directory: ./frontend_vuejs/citations-api
+          command: npm run test:e2e
+          wait-on: "http://localhost:5173"
+
+      # Upload test coverage reports for both backend and frontend
+      - name: Upload test coverage
         uses: actions/upload-artifact@v2
         with:
-            name: coverage
-            path: |
-            ./backend_express_mongo/coverage
-            ./frontend_vuesjs/citations-api/coverage
+          name: coverage
+          path: |
+            ./backend_express_mongodb/coverage
+            ./frontend_vuejs/citations-api/coverage
