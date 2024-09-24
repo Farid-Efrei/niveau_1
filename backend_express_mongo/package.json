@@ -4,7 +4,7 @@
   "description": "projet solo niveau 0 vueJs backend express + mongoDB",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,5 +29,8 @@
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
