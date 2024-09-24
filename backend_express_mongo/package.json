@@ -4,6 +4,7 @@
   "description": "projet solo niveau 0 vueJs backend express + mongoDB",
   "main": "server.js",
   "scripts": {
+    "start":"node server.js",
     "test": "jest"
   },
   "repository": {
