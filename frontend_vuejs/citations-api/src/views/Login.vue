@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-center justify-center h-screen">
-    <div class="w-1/3 p-8 rounded-lg shadow-xl">
-      <h2 class="text-3xl mb-6 text-center">Connexion :</h2>
+  <div class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="w-full max-w-md p-8 rounded-lg shadow-xl bg-white mb-6">
+      <h2 class="text-3xl mb-6 font-bold text-center">Connexion :</h2>
       <form
         @submit.prevent="login"
         class="flex flex-col">
@@ -9,15 +9,15 @@
           type="text"
           v-model="username"
           placeholder="Nom d'utilisateur"
-          class="mb-4 p-3 border rounded" />
+          class="w-full mb-4 p-3 border border-gray-400 rounded-lg" />
         <input
           type="password"
           v-model="password"
           placeholder="Mot de passe"
-          class="mb-4 p-3 border rounded" />
+          class="w-full border-gray-400 mb-4 p-3 border rounded-lg" />
         <button
           type="submit"
-          class="bg-blue-500 text-white p-3 rounded hover:bg-blue-700">
+          class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition">
           Se connecter
         </button>
 
@@ -27,12 +27,12 @@
           {{ erreur }}
         </p>
 
-        <div>
+        <div class="mt-4 text-center">
           <p>
             <RouterLink
               to="/register"
-              class="text-green-600 ml-10 hover:underline hover:text-lg"
-              >Créer un Compte</RouterLink
+              class="text-green-600 hover:underline hover:text-lg"
+              >Pas encore de compte? Créer un Compte</RouterLink
             >
           </p>
         </div>
